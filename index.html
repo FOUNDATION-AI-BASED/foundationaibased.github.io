@@ -17,30 +17,32 @@
 
     /* Header */
     header {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: white;
+      background: #ffffff; /* White background */
+      color: #333;
       padding: 2rem;
       text-align: center;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     header img {
-      width: 800px;
+      width: 1000px; /* Larger logo */
       height: auto;
       margin-bottom: 1rem;
-      border-radius: 1px; /* Slightly rounded edges */
+      border-radius: 0; /* No border radius */
     }
 
     h1 {
       margin: 0;
       font-size: 2.5rem;
       font-weight: 700;
+      color: #2575fc; /* Blue color for the title */
     }
 
     header p {
       margin: 0.5rem 0 0;
       font-size: 1.1rem;
       opacity: 0.9;
+      color: #666;
     }
 
     /* Container */
@@ -77,13 +79,6 @@
       box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
     }
 
-    .repo-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #f0f0f0; /* Placeholder background */
-    }
-
     .repo-card .content {
       padding: 1.5rem;
     }
@@ -92,6 +87,7 @@
       margin: 0 0 0.5rem;
       font-size: 1.4rem;
       font-weight: 600;
+      color: #2575fc;
     }
 
     .repo-card p {
@@ -161,9 +157,7 @@
     // Fetch repositories from GitHub API
     const repoList = document.getElementById('repo-list');
     const githubProfile = 'FOUNDATION-AI-BASED';
-
-    // Placeholder image for repos (can be replaced with dynamic images if available)
-    const placeholderImage = 'https://via.placeholder.com/400x180.png?text=Repo+Preview';
+    const excludeRepo = 'foundationaibased.my.id'; // Repository to exclude
 
     async function fetchRepos() {
       try {
@@ -171,10 +165,12 @@
         const repos = await response.json();
 
         repos.forEach(repo => {
+          // Exclude the specific repository
+          if (repo.name === excludeRepo) return;
+
           const repoCard = document.createElement('div');
           repoCard.className = 'repo-card';
           repoCard.innerHTML = `
-            <img src="${placeholderImage}" alt="${repo.name} Preview">
             <div class="content">
               <h3>${repo.name}</h3>
               <p>${repo.description || 'No description provided.'}</p>
